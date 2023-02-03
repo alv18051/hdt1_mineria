@@ -136,6 +136,12 @@ class(peliculas$castMenAmount)
 ```{r}
 
 ```
+#3 Distribución de variables cuantitativas
+```{r}
+
+
+
+```
 ### 4.1) Top 10 de peliculas con más presupuesto. 
 
 ```{r}
@@ -216,6 +222,59 @@ top_20_movies <- peliculas_ord[1:20, c("title", "director")]
 # print the result
 print(top_20_movies)
 
+
+
 ```
 
+#4.11: ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? 
 
+```{r}
+
+reg <- lm(peliculas$budget*20 ~ peliculas$revenue**2, data = peliculas)
+
+plot(peliculas$budget, peliculas$revenue, main="Budget vs Revenue", xlab="Budget", ylab="Revenue", pch=16)
+abline(reg, col = "red")
+
+```
+
+#Podemos observar que si se mantiene una ganancia en crecimiento hay un aumento en el presupuesto.
+
+```{r}
+
+```
+#4.12: ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
+```{r}
+
+
+peliculas$mesSalida <- as.numeric(format(as.Date(peliculas$releaseDate, format ="%Y-%m-%d"), "%m"))
+plot(peliculas$mesSalida, peliculas$revenue, xlab="Mes de Salida", ylab="Revenue")
+
+```
+#4.13: ¿En qué meses se han visto los lanzamientos con mejores ingresos?¿cuantas películas, en promedio, se han lanzado por mes? 
+
+```{r}
+
+peliculas$mesSalida <- as.numeric(format(as.Date(peliculas$releaseDate, format ="%Y-%m-%d"), "%m"))
+revenue_mes <- tapply(peliculas$revenue, peliculas$mesSalida, sum )
+mes_mas_rev <- which.max(revenue_mes)
+cat("El mes con más revenue es:", mes_mas_rev, "\n")
+cat("Este revenue es:", revenue_mes[mes_mas_rev], "\n")
+peliculas_mensuales <- table(peliculas$mesSalida)
+promedio <- mean(peliculas_mensuales)
+cat("El numero promedio de peliculas que son lanzadas por mes es:", promedio, "\n")
+
+
+```
+#4.15: ¿A qué género principal pertenecen las películas más largas? 
+
+```{r}
+
+
+peliculasRun <- peliculas[order(-peliculas$runtime), ]
+top_5 <- peliculasRun[1:5, ]
+
+# print the result
+cat("Los generos con las peliculas más largas son:", "\n")
+for (i in 1:5) {
+  cat(top_5$title[i], ":", top_5$genres[i], "\n")
+}
