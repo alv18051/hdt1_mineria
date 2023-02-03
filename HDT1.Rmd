@@ -20,10 +20,10 @@ El conjunto esta de datos esta compuesto por `rnrow(peliculas)` filas y `rncol(p
 head(peliculas)
 summary(peliculas)
 ```
-#Descripcion de las variables
-#Aquí describis a las variables:
+#2. Descripcion de las variables
+#Aquí se describen las variables:
 
-```{r echo = FALSE}
+```{r}
 
 
 class(peliculas$id)
@@ -199,6 +199,22 @@ cat("El top de peliculas por generos es:", "\n")
 for (i in 1:5) {
   cat(top_5_g$title[i], ":", top_5_g$genres[i], "\n")
 }
+
+```
+
+#4.10: ¿Quiénes son los directores que hicieron las 20 películas mejor calificadas? 
+
+```{r}
+peliculas_na <- peliculas[!is.na(peliculas$voteCount), ]
+
+
+peliculas_ord <- peliculas[order(-peliculas$voteCount), ]
+
+# select the top 20 movies along with their directors
+top_20_movies <- peliculas_ord[1:20, c("title", "director")]
+
+# print the result
+print(top_20_movies)
 
 ```
 
