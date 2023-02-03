@@ -107,9 +107,15 @@ barplot(table(peliculasRec), xlab="Generos", ylab="Cuenta", main=paste("Distribu
 
 ```
 
+#4.7: ¿Las películas de qué genero principal obtuvieron mayores ganancias? 
 
+``` {r}
+top_5_g <- sortedByGross[1:5, ]
+cat("El top de peliculas por generos es:", "\n")
+for (i in 1:5) {
+  cat(top_5_g$title[i], ":", top_5_g$genres[i], "\n")
+}
 
-
-
+```
 
 
