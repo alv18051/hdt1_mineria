@@ -1,0 +1,88 @@
+---
+title: "HDT 1"
+output: html_document
+date: "2023-02-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+peliculas <- read.csv("C:\\Users\\javie\\Desktop\\U\\2023f\\mineria\\movies.csv")
+```
+Descripcion del conjunto de datos.
+El conjunto esta de datos esta compuesto por `rnrow(peliculas)` filas y `rncol(peliculas)` columnas
+
+### 1. Resumen del conjunto de datos
+
+```{r echo = FALSE}
+head(peliculas)
+summary(peliculas)
+```
+#Descripcion de las variables
+#Aquí describis a las variables:
+
+```{r}
+class(peliculas$id)
+class(peliculas$budget)
+class(peliculas$genres)
+class(peliculas$homePage)
+class(peliculas$productionCompany)
+class(peliculas$productionCompanyCountry)
+class(peliculas$productionCountry)
+class(peliculas$revenue)
+class(peliculas$runtime)
+class(peliculas$video)
+class(peliculas$director)
+class(peliculas$actors)
+class(peliculas$actorsPopularity)
+class(peliculas$actorsCharacter)
+class(peliculas$originalTitle)
+class(peliculas$title)
+class((peliculas$originalLanguage))
+class(peliculas$popularity)
+class(peliculas$releaseDate)
+class(peliculas$voteAvg)
+class(peliculas$voteCount)
+class(peliculas$genresAmount)
+class(peliculas$productionCoAmount)
+class(peliculas$productionCountriesAmount)
+class(peliculas$actorsAmount)
+class(peliculas$castWomenAmount)
+class(peliculas$castMenAmount)
+```
+### 4.1) Top 10 de peliculas con más presupuesto. 
+
+```{r}
+sortedByBudget <- peliculas[order(-peliculas$budget),]
+top10 <- head(sortedByBudget, 10)
+top10
+```
+#4.2: Top 10 peliculas con más ingresos
+```{r}
+sortedByGross <- peliculas[order(-peliculas$revenue),]
+top10grossing<- head(sortedByGross, 10)
+top10grossing
+
+```
+#4.3: pelicula con mas votos
+```{r}
+sorted <- peliculas[order(-peliculas$voteCount),]
+top10votos <- head(sorted, 10)
+top10votos
+```
+#4.4: Top 10 peliculas con menos votos
+
+```{r}
+sorted10menos <- tail(sorted, 10)
+sorted10menos
+
+```
+#4.5: ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
+
+
+
+
+
+
