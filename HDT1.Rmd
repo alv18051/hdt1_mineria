@@ -16,14 +16,14 @@ El conjunto esta de datos esta compuesto por `rnrow(peliculas)` filas y `rncol(p
 
 ### 1. Resumen del conjunto de datos
 
-```{r echo = FALSE}
+```{r}
 head(peliculas)
 summary(peliculas)
 ```
 #Descripcion de las variables
 #Aquí describis a las variables:
 
-```{r}
+```{r echo = FALSE}
 class(peliculas$id)
 class(peliculas$budget)
 class(peliculas$genres)
@@ -80,6 +80,33 @@ sorted10menos
 
 ```
 #4.5: ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
+```{r}
+peliculas$releaseDate = as.Date(peliculas$releaseDate, "%Y-%m-%d")
+peliculas$year = format(peliculas$releaseDate, "%Y")
+peliculasPoraño = table(peliculas$year)
+peliculasPoraño
+barplot(peliculasPoraño, xlab = "Año", ylab = "Numero de peliculas")
+```
+
+#4.6: ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el conjunto de datos? Represéntelo usando un gráfico 
+
+```{r}
+peliculasOrd <- peliculas[order(peliculas$releaseDate),]
+peliculasRec <- peliculasOrd[1:20, ]
+
+# Split the genre column into separate rows for each movie
+peliculasRec <- do.call(rbind, strsplit(as.character(peliculasRec$genres), ", "))
+
+# Find the most frequent genre among the 20 most recent movies
+peliculasFreq = names(sort(table(peliculasRec), increasing=TRUE))[1]
+
+# Plot a bar graph showing the distribution of genres in the 20 most recent movies
+barplot(table(peliculasRec), xlab="Generos", ylab="Cuenta", main=paste("Distribucion de los generos en las 20 peliculas más recientes\n Genero predominante: ", peliculasFreq))
+
+
+
+```
+
 
 
 
