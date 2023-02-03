@@ -24,33 +24,117 @@ summary(peliculas)
 #Aquí describis a las variables:
 
 ```{r echo = FALSE}
+
+
 class(peliculas$id)
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$budget)
+```
+#cuantitativa continua
+```{r}
 class(peliculas$genres)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$homePage)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$productionCompany)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$productionCompanyCountry)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$productionCountry)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$revenue)
+```
+#cuantitativa continua
+```{r}
 class(peliculas$runtime)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$video)
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$director)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$actors)
+```
+#cualitativa nominal
+```{r}
 class(peliculas$actorsPopularity)
+```
+#cuantitativa continua
+```{r}
 class(peliculas$actorsCharacter)
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$originalTitle)
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$title)
+```
+#cualitativa ordinal
+```{r}
 class((peliculas$originalLanguage))
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$popularity)
+```
+#cuantitativa continua
+```{r}
 class(peliculas$releaseDate)
+```
+#cualitativa ordinal
+```{r}
 class(peliculas$voteAvg)
+```
+#cuantitativa continua
+```{r}
 class(peliculas$voteCount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$genresAmount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$productionCoAmount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$productionCountriesAmount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$actorsAmount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$castWomenAmount)
+```
+#cuantitativa discreta
+```{r}
 class(peliculas$castMenAmount)
+```
+#cuantitativa discreta
+```{r}
+
 ```
 ### 4.1) Top 10 de peliculas con más presupuesto. 
 
