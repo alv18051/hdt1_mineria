@@ -1,8 +1,15 @@
 ---
 title: "HDT 1"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2023-02-02"
 ---
+
+###Universidad del Valle de Guatemala
+###Mineria de datos
+###Elean Rivas - 19062
+###Javier Alarez - 18051
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -20,7 +27,7 @@ El conjunto esta de datos esta compuesto por `rnrow(peliculas)` filas y `rncol(p
 head(peliculas)
 summary(peliculas)
 ```
-#2. Descripcion de las variables
+###2. Descripcion de las variables
 #Aquí se describen las variables:
 
 ```{r}
@@ -132,16 +139,37 @@ class(peliculas$castWomenAmount)
 ```{r}
 class(peliculas$castMenAmount)
 ```
-#cuantitativa discreta
+
+
+###3 Distribución de variables cuantitativas
+
+#revenue
 ```{r}
+library(nortest)
+qqnorm(peliculas$revenue)
+qqline(peliculas$revenue, col="blue")
+revenue_normal <- lillie.test(peliculas$revenue)
+p_revenue <- revenue_normal$p.value
+```
+#Budget
+```{r}
+library(nortest)
+qqnorm(peliculas$budget)
+qqline(peliculas$budget, col="blue")
+normal_budget <- lillie.test(peliculas$budget)
+p_budget <- normal_budget$p.value
+```
+#popularity
+
+```{r}
+library(nortest)
+qqnorm(peliculas$popularity)
+qqline(peliculas$popularity, col="blue")
+normal_popularity <- lillie.test(peliculas$popularity)
+p_popularity <- normal_popularity$p.value
 
 ```
-#3 Distribución de variables cuantitativas
-```{r}
 
-
-
-```
 ### 4.1) Top 10 de peliculas con más presupuesto. 
 
 ```{r}
@@ -149,27 +177,27 @@ sortedByBudget <- peliculas[order(-peliculas$budget),]
 top10 <- head(sortedByBudget, 10)
 top10
 ```
-#4.2: Top 10 peliculas con más ingresos
+###4.2: Top 10 peliculas con más ingresos
 ```{r}
 sortedByGross <- peliculas[order(-peliculas$revenue),]
 top10grossing<- head(sortedByGross, 10)
 top10grossing
 
 ```
-#4.3: pelicula con mas votos
+###4.3: pelicula con mas votos
 ```{r}
 sorted <- peliculas[order(-peliculas$voteCount),]
 top10votos <- head(sorted, 10)
 top10votos
 ```
-#4.4: Top 10 peliculas con menos votos
+###4.4: Top 10 peliculas con menos votos
 
 ```{r}
 sorted10menos <- tail(sorted, 10)
 sorted10menos
 
 ```
-#4.5: ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
+###4.5: ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
 ```{r}
 peliculas$releaseDate = as.Date(peliculas$releaseDate, "%Y-%m-%d")
 peliculas$year = format(peliculas$releaseDate, "%Y")
@@ -178,7 +206,7 @@ peliculasPoraño
 barplot(peliculasPoraño, xlab = "Año", ylab = "Numero de peliculas")
 ```
 
-#4.6: ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el conjunto de datos? Represéntelo usando un gráfico 
+###4.6: ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el conjunto de datos? Represéntelo usando un gráfico 
 
 ```{r}
 peliculasOrd <- peliculas[order(peliculas$releaseDate),]
@@ -191,7 +219,7 @@ barplot(table(peliculasRec), xlab="Generos", ylab="Cuenta", main=paste("Distribu
 
 ```
 
-#4.7: ¿Las películas de qué genero principal obtuvieron mayores ganancias? 
+###4.7: ¿Las películas de qué genero principal obtuvieron mayores ganancias? 
 
 ``` {r}
 top_5_g <- sortedByGross[1:5, ]
@@ -202,7 +230,18 @@ for (i in 1:5) {
 
 ```
 
-#4.10: ¿Quiénes son los directores que hicieron las 20 películas mejor calificadas? 
+###4.8: ¿La cantidad de actores influye en los ingresos de las películas? ¿se han hecho películas con más actores en los últimos años? 
+
+```{r}
+actores <- peliculas[order(-peliculas$actorsAmount),]
+cut_thing <- subset(actores, select = c("id", "revenue", "actorsAmount", "releaseDate"))
+head(cut_thing, 20)
+
+```
+#podemos ver que la revenue no influye si hay más o menos actores. 
+
+
+###4.10: ¿Quiénes son los directores que hicieron las 20 películas mejor calificadas? 
 
 ```{r}
 peliculas_na <- peliculas[!is.na(peliculas$voteCount), ]
@@ -220,7 +259,7 @@ print(top_20_movies)
 
 ```
 
-#4.11: ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? 
+###4.11: ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? 
 
 ```{r}
 
@@ -231,12 +270,12 @@ abline(reg, col = "red")
 
 ```
 
-#Podemos observar que si se mantiene una ganancia en crecimiento hay un aumento en el presupuesto.
+Podemos observar que si se mantiene una ganancia en crecimiento hay un aumento en el presupuesto.
 
 ```{r}
 
 ```
-#4.12: ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
+###4.12: ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
 ```{r}
 
 
@@ -244,7 +283,7 @@ peliculas$mesSalida <- as.numeric(format(as.Date(peliculas$releaseDate, format =
 plot(peliculas$mesSalida, peliculas$revenue, xlab="Mes de Salida", ylab="Revenue")
 
 ```
-#4.13: ¿En qué meses se han visto los lanzamientos con mejores ingresos?¿cuantas películas, en promedio, se han lanzado por mes? 
+###4.13: ¿En qué meses se han visto los lanzamientos con mejores ingresos?¿cuantas películas, en promedio, se han lanzado por mes? 
 
 ```{r}
 
@@ -259,7 +298,7 @@ cat("El numero promedio de peliculas que son lanzadas por mes es:", promedio, "\
 
 
 ```
-#4.15: ¿A qué género principal pertenecen las películas más largas? 
+###4.15: ¿A qué género principal pertenecen las películas más largas? 
 
 ```{r}
 
