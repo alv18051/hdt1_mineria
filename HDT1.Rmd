@@ -183,14 +183,8 @@ barplot(peliculasPoraño, xlab = "Año", ylab = "Numero de peliculas")
 ```{r}
 peliculasOrd <- peliculas[order(peliculas$releaseDate),]
 peliculasRec <- peliculasOrd[1:20, ]
-
-# Split the genre column into separate rows for each movie
 peliculasRec <- do.call(rbind, strsplit(as.character(peliculasRec$genres), ", "))
-
-# Find the most frequent genre among the 20 most recent movies
 peliculasFreq = names(sort(table(peliculasRec), increasing=TRUE))[1]
-
-# Plot a bar graph showing the distribution of genres in the 20 most recent movies
 barplot(table(peliculasRec), xlab="Generos", ylab="Cuenta", main=paste("Distribucion de los generos en las 20 peliculas más recientes\n Genero predominante: ", peliculasFreq))
 
 
@@ -278,3 +272,4 @@ cat("Los generos con las peliculas más largas son:", "\n")
 for (i in 1:5) {
   cat(top_5$title[i], ":", top_5$genres[i], "\n")
 }
+```
